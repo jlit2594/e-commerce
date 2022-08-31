@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
         'product_name',
         'price',
         'stock',
-        'category_id'
+        'category_id',
+        [sequelize.literal('(SELECT COUNT(*) FROM product_tag WHERE product.id = product_tag.product_id)'), 'tag_count']
     ],
     include: [
       {
@@ -49,7 +50,8 @@ router.get('/:id', (req, res) => {
       'product_name',
       'price',
       'stock',
-      'category_id'
+      'category_id',
+      [sequelize.literal('(SELECT COUNT(*) FROM product_tag WHERE product.id = product_tag.product_id)'), 'tag_count']
   ],
   include: [
     {
